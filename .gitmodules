@@ -1,0 +1,3 @@
+[submodule "public/sufee-admin"]
+	path = public/sufee-admin
+	url = https://github.com/puikinsh/sufee-admin-dashboard.git
