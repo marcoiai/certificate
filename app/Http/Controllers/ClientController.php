@@ -26,14 +26,13 @@ class ClientController extends Controller
 
         $data = $request->get('client');
 
-        $client->name = $data['name'];
+        $client->name       = $data['name'];
+        $client->short_name = $data['short_name'];
+        $client->address    = $data['address'];
 
         $client->save();
 
-        dd($client);
-
-        return redirect('');
-      //return view('client/new');
+        return redirect('client/list');
     }
 
     public function edit(Client $client)

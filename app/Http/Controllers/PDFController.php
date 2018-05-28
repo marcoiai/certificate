@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use App\Certificate;
+use App\Client;
+use App\Product;
+use App\Contract;
+use Dompdf\Options;
 
 class PDFController extends Controller
 {
@@ -19,97 +23,38 @@ class PDFController extends Controller
 
     public function pdf(Certificate $certificate)
     {
-        //$locks = $certificate->with('certificates_locks');
+        $agent       = Client::find($certificate->agent_id);
+        $client      = Client::find($certificate->client_id);
+        $consignee   = Client::find($certificate->consignee_id);
+        $contract    = Contract::find($certificate->contract_id);
+        $product     = Product::find($certificate->product_id);
 
-      $html = <<<HTML
-      <html>
-    <head>
-        <style>
-        /**
-        * Set the margins of the PDF to 0
-        * so the background image will cover the entire page.
-        **/
-        @page {
-            margin: 0cm 0cm;
-        }
+        $html = view()->make('pdf', [
+                                    'certificate'   => $certificate,
+                                    'agent'         => $agent,
+                                    'client'        => $client,
+                                    'consignee'     => $consignee,
+                                    'contract'      => $contract,
+                                    'product'       => $product
+                                ])->render();
 
-        /**
-        * Define the real margins of the content of your PDF
-        * Here you will fix the margins of the header and footer
-        * Of your background image.
-        **/
-        body {
-            margin-top:    3.5cm;
-            margin-bottom: 1cm;
-            margin-left:   1cm;
-            margin-right:  1cm;
-        }
+        //teste de computador, eu digito muito bem hahahhhaha
+        //teste de conmputador dois, eu digito muito bem e sem erros.
+        //atheduthoead 
 
-        /**
-        * Define the width, height, margins and position of the watermark.
-        **/
-        #watermark {
-            position: fixed;
-            bottom:   0px;
-            left:     0px;
-            /** The width and height may change
-                according to the dimensions of your letterhead
-            **/
-            width:    21cm;
-            height:   29.7cm;
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html, 'UTF-8');
 
-            /** Your watermark should be behind every content**/
-            z-index:  -1000;
-        }
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
 
-        .content {
-          margin-left: 2cm;
-        }
-        </style>
-    </head>
-    <body>
-        <div id="watermark">
-            <img src="background.png" height="100%" width="100%" />
-        </div>
+        // Render the HTML as PDF
+        $dompdf->render();
 
-        <main class="content">
-            <small>Conformity is Certificated ISO 9001:2008 by RINA<br />Accreditations INMETRO, ANAB, IQNET, IAF, ACCREDIA and CISQ</small>
-
-            <h4>CERTIFICADO DE CONFORMIDAD<br />INSPECCION PRE-EMBARQUE</h4>
-
-            <p>
-              Certificamos que, a solicitud de<br />
-              <strong>{$certificate->client_id}</strong>
-            </p>
-
-            <p>
-              y actuando<br />
-              <strong></strong>
-            </p>
-
-            <p>
-              como agente de<br />
-              <strong>{$certificate->agent_id}</strong>
-            </p>
-
-        </main>
-    </body>
-</html>
-HTML;
-
-      // instantiate and use the dompdf class
-      $dompdf = new Dompdf();
-      $dompdf->loadHtml($html);
-
-      // (Optional) Setup the paper size and orientation
-      $dompdf->setPaper('A4', 'portrait');
-
-      // Render the HTML as PDF
-      $dompdf->render();
-
-      // Output the generated PDF to Browser
-      $dompdf->stream('bla', array("Attachment"=>0));
-
-      die('generate PDF');
+        // Output the generated PDF to Browser
+        $dompdf->stream('bla', array("Attachment"=>0));
     }
 }

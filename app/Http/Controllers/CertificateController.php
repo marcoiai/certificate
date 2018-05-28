@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Certificate;
 use App\Client;
+use App\Contract;
+use App\Product;
 
 class CertificateController extends Controller
 {
@@ -20,7 +22,16 @@ class CertificateController extends Controller
 
         $clients = Client::orderBy('id')->get();
 
-        return view('certificate/new', ['certificate' => $certificate, 'clients' => $clients]);
+        $contracts = Contract::orderBy('id')->get();
+
+        $products = Product::orderBy('id')->get();
+
+        return view('certificate/new', [
+            'certificate' => $certificate,
+            'clients'     => $clients,
+            'contracts'   => $contracts,
+            'products'    => $products
+        ]);
     }
 
     public function new(Request $request)
@@ -29,21 +40,34 @@ class CertificateController extends Controller
 
         $data = $request->get('certificate');
 
-        $certificate->client_id = $data['client_id'];
-        $certificate->agent_id  = $data['agent_id'];
+        $certificate->client_id             = $data['client_id'];
+        $certificate->agent_id              = $data['agent_id'];
+        $certificate->consignee_id          = $data['consignee_id'];
+        $certificate->contract_id           = $data['contract_id'];
+        $certificate->product_id            = $data['product_id'];
+        $certificate->declared_quantity     = $data['declared_quantity'];
+        $certificate->container             = $data['container'];
+        $certificate->booking               = $data['booking'];
+        $certificate->date_of_inspection    = $data['date_of_inspection'];
 
         $certificate->save();
 
-        dd($certificate);
-
-        return redirect('');
-      //return view('certificate/new');
+        return redirect('certificate/list');
     }
 
     public function edit(Certificate $certificate)
     {
         $clients = Client::orderBy('id')->get();
 
-        return view('certificate/new', ['certificate' => $certificate, 'clients' => $clients]);
+        $contracts = Contract::orderBy('id')->get();
+
+        $products = Product::orderBy('id')->get();
+
+        return view('certificate/new', [
+            'certificate' => $certificate,
+            'clients'     => $clients,
+            'contracts'   => $contracts,
+            'products'    => $products
+        ]);
     }
 }

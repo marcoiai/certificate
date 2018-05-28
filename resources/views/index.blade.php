@@ -41,7 +41,7 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./">
-                    Conformity
+                    PITER
                 </a>
                 <a class="navbar-brand hidden" href="./">
                     C
@@ -51,28 +51,56 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Menu </a>
+                        <a href="/"> <i class="menu-icon fa fa-dashboard"></i>Home </a>
                     </li>
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Clientes</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Clientes</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-puzzle-piece"></i><a href="{{ route('client-list') }}">Lista</a></li>
                             <li><i class="fa fa-id-badge"></i><a href="{{ route('client-create') }}">Novo</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Certificados</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-certificate"></i>Certificados</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="{{ route('certificate-list') }}">Lista</a></li>
                             <li><i class="fa fa-table"></i><a href="{{ route('certificate-create') }}">Novo</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Mercadorias</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('product-list') }}">Lista</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('product-create') }}">Novo</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-file-alt"></i>Contratos</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('contract-list') }}">Lista</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('contract-create') }}">Novo</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user-cog"></i>Embalagens</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('packing-list') }}">Lista</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('packing-create') }}">Novo</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tags"></i>Etiquetas</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('label-list') }}">Lista</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('label-create') }}">Novo</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tags"></i>Temperaturas</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('certificate_temperature-list') }}">Lista</a></li>
+                            <li><i class="menu-icon fa fa-th"></i><a href="{{ route('certificate_temperature-create') }}">Novo</a></li>
                         </ul>
                     </li>
 
@@ -261,6 +289,61 @@
     <script src="/sufee-admin/assets/js/lib/chart-js/Chart.bundle.js"></script>
     <script src="/sufee-admin/assets/js/dashboard.js"></script>
     <script src="/sufee-admin/assets/js/widgets.js"></script>
+    <script>
+    jQuery(document).ready(function () {
+        jQuery(document).keypress(function( event )
+        {
+            console.log(event.keyCode);
+            // Ctrl + 1
+            if (event.ctrlKey && event.keyCode == 49)
+            {
+                document.location.href = '{{ route('client-create') }}';
+            }
+
+            // Ctrl + 2
+            if (event.ctrlKey && event.keyCode == 50)
+            {
+                document.location.href = '{{ route('client-list') }}';
+            }
+
+            // Ctrl + 3
+            if (event.ctrlKey && event.keyCode == 51)
+            {
+                document.location.href = '{{ route('contract-create') }}';
+            }
+
+            // Ctrl + 4
+            if (event.ctrlKey && event.keyCode == 52)
+            {
+                document.location.href = '{{ route('contract-list') }}';
+            }
+
+            // Ctrl + 5
+            if (event.ctrlKey && event.keyCode == 53)
+            {
+                document.location.href = '{{ route('label-create') }}';
+            }
+
+            // Ctrl + 6
+            if (event.ctrlKey && event.keyCode == 54)
+            {
+                document.location.href = '{{ route('label-create') }}';
+            }
+
+            // Ctrl + 7
+            if (event.ctrlKey && event.keyCode == 55)
+            {
+                document.location.href = '{{ route('packing-create') }}';
+            }
+
+            // Ctrl + 8
+            if (event.ctrlKey && event.keyCode == 56)
+            {
+                document.location.href = '{{ route('packing-list') }}';
+            }
+        });
+    });
+    </script>
     @yield('javascripts')
 
 

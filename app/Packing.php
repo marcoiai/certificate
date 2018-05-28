@@ -1,15 +1,11 @@
 <?php
 namespace App;
 
-use App\Entity;
-
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Entity
+class Packing extends Model
 {
-    protected $table = 'entities';
-
-    protected $attributes = ['type' => 'C'];
+    protected $table = 'packings';
 
     public function certificate()
     {

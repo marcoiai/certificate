@@ -5,11 +5,9 @@ use App\Entity;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Client extends Entity
+class Contract extends Entity
 {
-    protected $table = 'entities';
-
-    protected $attributes = ['type' => 'C'];
+    protected $table = 'contracts';
 
     public function certificate()
     {

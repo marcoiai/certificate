@@ -35,7 +35,7 @@
                     <i class="fa fa-users"></i>
                 </div>
                 <div class="h4 mb-0">
-                    <span class="count">{{ count($clients)}}</span>
+                    <span class="count">{{ count($clients) }}</span>
                 </div>
                 <small class="text-muted text-uppercase font-weight-bold">Clientes</small>
                 <div class="progress progress-xs mt-3 mb-0 bg-flat-color-3"></div>
@@ -47,9 +47,9 @@
                     <i class="fa fa-container-storage"></i>
                 </div>
                 <div class="h4 mb-0">
-                    <span class="count">89</span>
+                    <span class="count">{{ $vistorias->vistorias }}</span>
                 </div>
-                <small class="text-muted text-uppercase font-weight-bold">Vistorias</small>
+                <small class="text-muted text-uppercase font-weight-bold">Mercadorias Vistoriadas</small>
                 <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4"></div>
             </div>
         </div>
